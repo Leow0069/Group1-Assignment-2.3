@@ -12,7 +12,8 @@ describe("processRequest function", () => {
         appCode.closeConnections = jest.fn().mockReturnValue(false);
         expect(() => {
             appCode.processRequest(mockFn)
-        }).toThrow("Internal server error")
+        }).toThrow("Internal server error");
+        expect(appCode.closeConnections).toHaveBeenCalled(); 
     })
 
     it("should run as intended when mocking closeConnections() to return true", () => {
