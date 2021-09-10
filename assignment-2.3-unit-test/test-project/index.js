@@ -28,7 +28,9 @@ function handleRequest(requestFn, username){
 // Sometimes connections are unable to close due to various reasons. In this case, we won't go into the details of the reason.
 function processRequest(requestFn){
     requestFn();
-    if(closeConnections())
+    const status = this.closeConnections();
+    console.log(status);
+    if (status)
         return "ok";
     else
         throw new Error("Internal server error");
