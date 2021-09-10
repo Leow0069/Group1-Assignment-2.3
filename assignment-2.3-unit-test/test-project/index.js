@@ -20,7 +20,7 @@ function handleRequest(requestFn, username){
         throw new Error("username is undefined");
     }
 
-    processRequest(requestFn); 
+    return this.processRequest(requestFn); 
 }
 
 // In a typical request processing, there will be integration points where connections are opened. 
@@ -28,9 +28,7 @@ function handleRequest(requestFn, username){
 // Sometimes connections are unable to close due to various reasons. In this case, we won't go into the details of the reason.
 function processRequest(requestFn){
     requestFn();
-    const status = this.closeConnections();
-    console.log(status);
-    if (status)
+    if (this.closeConnections())
         return "ok";
     else
         throw new Error("Internal server error");
@@ -39,4 +37,10 @@ function processRequest(requestFn){
 // This function currently always return true. You may consider mocking this function to return false to simulate a close connection error scenario.
 function closeConnections(){
     return true;
+}
+
+module.exports = {
+    handleRequest,
+    processRequest,
+    closeConnections,
 }
